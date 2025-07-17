@@ -24,9 +24,10 @@ function check_all_boxes () {
         document.getElementById("calculate-button").disabled = true;
         let suggestion1 = Math.ceil(dim_value_1 / 8) * 8;
         let suggestion2 = Math.ceil(dim_value_2 / 8) * 8;
-        document.getElementById("calculate-error").textContent = `At least one dimension must be a multiple of 8. Suggestion: make length ${suggestion1} ft or make width ${suggestion2} ft.`;
+                document.getElementById("calculate-error").style.animation = "none";
+        document.getElementById("calculate-error").textContent = `At least one dimension must be a multiple of 8.`;
+        document.getElementById("calculate-error").innerHTML = `At least one dimension must be a multiple of 8.<br><br><b>Suggestion: make length ${suggestion1} ft or make width ${suggestion2} ft.<b>`;
         document.getElementById("calculate-error").style.display = "block";
-        document.getElementById("calculate-error").style.animation = "none";
         allGood = false;
     }
     if (allGood) {
@@ -35,7 +36,7 @@ function check_all_boxes () {
         setTimeout(() => {
             document.getElementById("calculate-error").textContent = "";
             document.getElementById("calculate-error").style.display = "none";
-        }, 2000);
+        }, 0);
     }
 }
 
@@ -92,8 +93,8 @@ function validate_leg_input() {
             leg_input_clear_timer = setTimeout(() => {
                 legError.style.display = "none";
                 legError.textContent = "";
-            }, 1500);
-        }, 4000);
+            }, 0);
+        }, 0);
     }, 1500);
 }
 
@@ -168,8 +169,8 @@ function validate_stage_input() {
             dim_clear_timer = setTimeout(() => {
                 dimError.style.display = "none";
                 dimError.textContent = "";
-            }, 1500)
-        }, 4000);
+            }, 0)
+        }, 0);
     }, 1500);
 }
 

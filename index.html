@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Ben's Big Stage Guide V2</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1 class="title">Ben's Big Stage Guide V2</h1>
+    
+    <div class="leg-input">
+        <h3 class="section-title">Enter the number of available stage leg pieces.</h3>
+        <div id="leg-input-grid">
+            <label id="three-leg-input-label" class="input-label" for="three-leg-input-box"># of 3-legs</label>
+            <input id="three-leg-input-box" class="number-input" type="number" placeholder="# of available 3 legs" value="3" step="1" min="0" max="20">
+            <label id="four-leg-input-label" class="input-label" for="four-leg-input-box"># of 4-legs</label>
+            <input id="four-leg-input-box" class="number-input" type="number" placeholder="# of available 4 legs" value="6" step="1" min="0" max="20">
+        </div>
+        <div id= "leg-input-error" class="error-message"></div>
+    </div>
+
+    <div class="dimension-input">
+        <h3 class="section-title">Enter the dimensions of the stage you plan to build.</h3>
+        <div id="dimension-input-grid">
+            <label id="dimension-label-1" class="input-label" for="dimension-input-box-1">Length</label>
+            <input id="dimension-input-box-1" class="number-input" type="number" placeholder="Length in feet" value="8" step="4" min="0" max="1000">
+            <label id="feet-label-1" class="feet-label">ft</label>
+            <span id="dimension-separator">X</span>
+            <label id="dimension-label-2" class="input-label" for="dimension-input-box-2">Width</label>
+            <input id="dimension-input-box-2" class="number-input" type="number" placeholder="Width in feet" value="8" step="4" min="0" max="1000">
+            <label id="feet-label-2" class="feet-label">ft</label>
+        </div>
+        <div id="dimension-input-error" class="error-message"></div>
+        <button id="calculate-button">Create Layout Diagram</button>
+        <div id="calculate-error" class="error-message"></div>
+    </div>
+
+    <div class="stage-output">
+        <h3 class="section-title">Top-Down Stage Diagram</h3>
+        <button id="print-button">🖨️</button>
+        <div id="leg-info">
+            <div id="stage-dimensions-info">Stage Dimensions: <span id="stage-dimensions-info-output"></span></div>
+            <div id="three-leg-info">Number of 3-legs required: <span id="three-leg-info-output"></span></div>
+            <div id="four-leg-info">Number of 4-legs required: <span id="four-leg-info-output"></span></div>
+        </div>
+        <div id="stage-output-grid"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

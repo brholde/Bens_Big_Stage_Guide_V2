@@ -176,3 +176,46 @@ function validate_stage_input() {
 
 document.getElementById("dimension-input-box-1").addEventListener("input", validate_stage_input);
 document.getElementById("dimension-input-box-2").addEventListener("input", validate_stage_input);
+
+
+
+
+
+function create_grid_of_4x8_panels() {
+    const dim1 = Number(document.getElementById("dimension-input-box-1").value);
+    const dim2 = Number(document.getElementById("dimension-input-box-2").value);
+
+    if (dim1%4==0 && dim2%8==0) {
+        
+    }
+    else if (dim1%8==0 && dim2%4==0) {
+        let temp = dim1;
+        dim1 = dim2;
+        dim2 = temp;
+    }
+    else
+    {
+        throw new Error("Dimensions are not multiples of 4 and 8.");
+    }
+
+    const panel_grid =[];
+    const num_rows = dim2 / 8;
+    const num_cols = dim1 / 4;
+    for (let i = 0; i < num_rows; i++) {
+        const row = [];
+        for (let j = 0; j < num_cols; j++) {
+            row.push("p");
+        }
+        panel_grid.push(row);
+    }
+
+    const array_output = document.getElementById("stage-output-grid");
+    array_output.innerHTML = panel_grid.map(row => row.join(' ')).join('<br>');
+}
+
+
+function drop_legs() {
+    
+}
+
+document.getElementById("calculate-button").addEventListener("click", create_grid_of_4x8_panels);

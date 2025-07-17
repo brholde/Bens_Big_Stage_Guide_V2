@@ -3,13 +3,33 @@ function check_all_boxes () {
     const four_leg_input = document.getElementById("four-leg-input-box");
     const dim_box_1 = document.getElementById("dimension-input-box-1");
     const dim_box_2 = document.getElementById("dimension-input-box-2");
+    const dim_value_1 = Number(dim_box_1.value);
+    const dim_value_2 = Number(dim_box_2.value);
+    const allGood = true;
 
     if (three_leg_input.value === "" || four_leg_input.value === "" || dim_box_1.value === "" || dim_box_2.value === "") {
         document.getElementById("calculate-button").disabled = true;
         document.getElementById("calculate-error").textContent = "Please fill in all fields before generating diagram.";
         document.getElementById("calculate-error").style.display = "block";
         document.getElementById("calculate-error").style.animation = "none";
-    } else {
+        allGood = false;
+    }
+    if (dim_value_1 % 4 !== 0 || dim_value_2 % 4 !== 0) {
+        document.getElementById("calculate-button").disabled = true;
+        document.getElementById("calculate-error").textContent = "Please ensure both dimensions are multiples of 4.";
+        document.getElementById("calculate-error").style.display = "block";
+        document.getElementById("calculate-error").style.animation = "none";
+        allGood = false;
+    } else if (!( (dim_value_1%8==0 && dim_value_2%4==0) || (dim_value_1%4==0 && dim_value_2%8==0) )) {
+        document.getElementById("calculate-button").disabled = true;
+        let suggestion1 = Math.ceil(dim_value_1 / 8) * 8;
+        let suggestion2 = Math.ceil(dim_value_2 / 8) * 8;
+        document.getElementById("calculate-error").textContent = `At least one dimension must be a multiple of 8. Suggestion: make length ${suggestion1} ft or make width ${suggestion2} ft.`;
+        document.getElementById("calculate-error").style.display = "block";
+        document.getElementById("calculate-error").style.animation = "none";
+        allGood = false;
+    }
+    if (allGood) {
         document.getElementById("calculate-button").disabled = false;
         document.getElementById("calculate-error").style.animation = "fadeOut 2.0s forwards";
         setTimeout(() => {
@@ -18,6 +38,14 @@ function check_all_boxes () {
         }, 2000);
     }
 }
+
+document.getElementById("dimension-input-box-1").addEventListener("input", check_all_boxes);
+document.getElementById("dimension-input-box-2").addEventListener("input", check_all_boxes);
+document.getElementById("three-leg-input-box").addEventListener("input", check_all_boxes);
+document.getElementById("four-leg-input-box").addEventListener("input", check_all_boxes);
+
+
+
 
 let leg_input_clear_timer;
 let leg_input_animation_timer;
@@ -67,7 +95,6 @@ function validate_leg_input() {
             }, 1500);
         }, 4000);
     }, 1500);
-    check_all_boxes();
 }
 
 document.getElementById("three-leg-input-box").addEventListener("input", validate_leg_input);
@@ -96,24 +123,28 @@ function validate_stage_input() {
             dim_box_1.value = Math.ceil(dim_value_1 / 4) * 4;
             dimError.style.display = "block";
             dimError.style.animation = "none";
+            check_all_boxes();
         }
         if (dim_value_2 % 4 !== 0) {
             dimError.textContent = "Dimension values must be a multiple of 4.";
             dim_box_2.value = Math.ceil(dim_value_2 / 4) * 4;
             dimError.style.display = "block";
             dimError.style.animation = "none";
+            check_all_boxes();
         }
         if (dim_value_1 < 8 && dim_box_1.value !== "") {
             dimError.textContent = "Please only enter values greater than or equal to 8.";
             dim_box_1.value = 8;
             dimError.style.display = "block";
             dimError.style.animation = "none";
+            check_all_boxes();
         } 
         if (dim_value_2 < 8 && dim_box_2.value !== "") {
             dimError.textContent = "Please only enter values greater than or equal to 8.";
             dim_box_2.value = 8;
             dimError.style.display = "block";
             dimError.style.animation = "none";
+            check_all_boxes();
         } 
         if (!Number.isInteger(dim_value_1)) {
             dimError.textContent = "Please only enter whole numbers.";
@@ -121,6 +152,7 @@ function validate_stage_input() {
             dim_box_1.value = Math.ceil(dim_box_1.value / 4) * 4;
             dimError.style.display = "block";
             dimError.style.animation = "none";
+            check_all_boxes();
         } 
         if (!Number.isInteger(dim_value_2)) {
             dimError.textContent = "Please only enter whole numbers.";
@@ -128,6 +160,7 @@ function validate_stage_input() {
             dim_box_2.value = Math.ceil(dim_box_2.value / 4) * 4;
             dimError.style.display = "block";
             dimError.style.animation = "none";
+            check_all_boxes();
         }
         
         dim_animation_timer = setTimeout(() => {
@@ -138,7 +171,6 @@ function validate_stage_input() {
             }, 1500)
         }, 4000);
     }, 1500);
-    check_all_boxes();
 }
 
 document.getElementById("dimension-input-box-1").addEventListener("input", validate_stage_input);

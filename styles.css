@@ -208,3 +208,16 @@ body {
 #four-leg-info {
     font-size: 1.5vw;
 }
+#stage-output-grid {
+  display: grid;
+  width: 100%;
+  max-width: 90vw;
+  height: fit-content;
+  margin: 0 auto;
+  gap: 4px;
+  border: 1px solid #ccc;
+}
+
+.stage-cell {
+  border: 1px solid #ccc;
+}

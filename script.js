@@ -5,7 +5,7 @@ function check_all_boxes () {
     const dim_box_2 = document.getElementById("dimension-input-box-2");
     const dim_value_1 = Number(dim_box_1.value);
     const dim_value_2 = Number(dim_box_2.value);
-    const allGood = true;
+    let allGood = true;
 
     if (three_leg_input.value === "" || four_leg_input.value === "" || dim_box_1.value === "" || dim_box_2.value === "") {
         document.getElementById("calculate-button").disabled = true;
@@ -182,10 +182,17 @@ document.getElementById("dimension-input-box-2").addEventListener("input", valid
 
 
 function create_grid_of_4x8_panels() {
-    const dim1 = Number(document.getElementById("dimension-input-box-1").value);
-    const dim2 = Number(document.getElementById("dimension-input-box-2").value);
+    let dim1 = Number(document.getElementById("dimension-input-box-1").value);
+    let dim2 = Number(document.getElementById("dimension-input-box-2").value);
 
-    if (dim1%4==0 && dim2%8==0) {
+    if (dim1%8==0 && dim2%8==0) {
+        if (dim1 < dim2) {
+            let temp = dim1;
+            dim1 = dim2;
+            dim2 = temp;
+        }
+    }
+    else if (dim1%4==0 && dim2%8==0) {
         
     }
     else if (dim1%8==0 && dim2%4==0) {
@@ -209,13 +216,244 @@ function create_grid_of_4x8_panels() {
         panel_grid.push(row);
     }
 
-    const array_output = document.getElementById("stage-output-grid");
-    array_output.innerHTML = panel_grid.map(row => row.join(' ')).join('<br>');
+    //const array_output = document.getElementById("stage-output-grid");
+    //array_output.innerHTML = panel_grid.map(row => row.join(' ')).join('<br>');
+
+    return panel_grid;
 }
 
 
-function drop_legs() {
-    
+function drop_legs(panel_grid, three_leg_count, four_leg_count) {
+    const num_rows = panel_grid.length;
+    const num_cols = panel_grid[0].length;
+    let current_row = 0;
+    let current_col = 0;
+    let stage_leg_grid = [];
+
+    if (num_rows <= 0) {
+        throw new Error("Could not drop legs: panel grid is empty.");
+    }
+
+    while (current_row < num_rows) {
+        let new_row = [];
+
+        current_col = 0;
+
+        while (current_col < num_cols) {
+            if (panel_grid[current_row].length - current_col < 2)
+            {
+                throw new Error("Could not drop legs: not enough rows to place legs.");
+            }
+            else if (panel_grid[current_row].length - current_col == 2) {
+                if (three_leg_count > 0) {
+                    new_row.push("t");
+                    three_leg_count--;
+                    current_col += 2;
+                } 
+                else {
+                    throw new Error("Could not drop legs: not enough three-legs available.");
+                }
+            }
+            else if (panel_grid[current_row].length - current_col == 3) {
+                if (four_leg_count > 0) {
+                    new_row.push("f");
+                    four_leg_count--;
+                    current_col += 3;
+                } 
+                else {
+                    throw new Error("Could not drop legs: not enough four-legs available.");
+                }
+            }
+            else if (panel_grid[current_row].length - current_col == 4)
+            {
+                if (three_leg_count > 0) {
+                    new_row.push("t");
+                    three_leg_count--;
+                    current_col += 2;
+                } 
+                else {
+                    throw new Error("Could not drop legs: not enough three-legs available.");
+                }
+            }
+            else if (panel_grid[current_row].length - current_col == 5) {
+                if (three_leg_count >= 2)
+                {
+                    new_row.push("t");
+                    new_row.push("g");
+                    three_leg_count -= 1;
+                    current_col += 3;
+                }
+                else if (three_leg_count > 0 && four_leg_count > 0) {
+                    new_row.push("f");
+                    four_leg_count--;
+                    current_col += 3;
+                }
+                else {
+                    throw new Error("Could not drop legs: not enough three-legs or four-legs available.");
+                }
+            }
+            else if (panel_grid[current_row].length - current_col == 6) {
+                if (three_leg_count > 0 && four_leg_count > 0) {
+                    new_row.push("f");
+                    new_row.push("g");
+                    four_leg_count--;
+                    current_col += 4;
+                } 
+                else if (four_leg_count >= 2) {
+                    new_row.push("f");
+                    four_leg_count -= 1;
+                    current_col += 3;
+                }
+                else if (three_leg_count >= 3) {
+                    new_row.push("t");
+                    three_leg_count -= 1;
+                    current_col += 2;
+                }
+                else {
+                    throw new Error("Could not drop legs: not enough three-legs or four-legs available.");
+                }
+            }
+            else if (panel_grid[current_row].length - current_col == 7) {
+                if (four_leg_count >= 2) {
+                    new_row.push("f");
+                    new_row.push("g");
+                    four_leg_count -= 1;
+                    current_col += 4;
+                }
+                else if (three_leg_count >= 3) {
+                    new_row.push("t");
+                    new_row.push("g");
+                    three_leg_count -= 1;
+                    current_col += 3;
+                }
+                else if (four_leg_count >0 && three_leg_count >=2) {
+                    new_row.push("f");
+                    four_leg_count -= 1;
+                    current_col += 3;
+                }
+                else {
+                    throw new Error("Could not drop legs: not enough three-legs or four-legs available.");
+                }
+            }
+            else if (panel_grid[current_row].length - current_col > 7) {
+                if (four_leg_count > 0) {
+                    new_row.push("f");
+                    new_row.push("g");
+                    four_leg_count -= 1;
+                    current_col += 4;
+                }
+                else if (three_leg_count > 0) {
+                    new_row.push("t");
+                    new_row.push("g");
+                    three_leg_count -= 1;
+                    current_col += 3;
+                }
+                else {
+                    throw new Error("Could not drop legs: not enough three-legs or four-legs available.");
+                }
+            }
+            else {
+                throw new Error("Could not drop legs: unexpected panel grid length.");
+            }
+        }   
+        stage_leg_grid.push(new_row);
+        if (num_rows - current_row > 2) {
+            let gap_row = [];
+            for (let i = 0; i < new_row.length; i++) {
+                gap_row.push("g");
+            }
+            stage_leg_grid.push(gap_row);
+            current_row++;
+        }
+        current_row++;
+    }
+
+
+    return stage_leg_grid;
 }
 
-document.getElementById("calculate-button").addEventListener("click", create_grid_of_4x8_panels);
+function assign_images(layout) {
+    let image_layout = [];
+    for (let i = 0; i < layout.length; i++) {
+        image_layout_row = [];
+        for (let j = 0; j < layout[i].length; j++) {
+            if (layout[i][j] == "f") {
+                image_layout_row.push(0);
+            }
+            else if (layout[i][j] == "t") {
+                image_layout_row.push(1);
+            }
+            else if (layout[i][j] == "g") {
+                if (layout[i][j-1] == "f" || layout[i][j-1] == "t" || layout[i][j+1] == "f" || layout[i][j+1] == "t") {
+                    image_layout_row.push(8);
+                }
+                else if (layout[i-1][j] == "f" || layout[i+1][j] == "f") {
+                    image_layout_row.push(4);
+                }
+                else if (layout[i-1][j] == "t" || layout[i+1][j] == "t") {
+                    image_layout_row.push(5);
+                }
+                else {
+                    image_layout_row.push(8);
+                }
+            }
+            else {
+                throw new Error("Unexpected value in layout: " + layout[i][j]);
+            }
+        }
+        image_layout.push(image_layout_row);
+    }
+
+    return image_layout;
+}
+
+
+function make_diagram() {
+    panel_grid = create_grid_of_4x8_panels();
+
+    layout = drop_legs(panel_grid, 
+        Number(document.getElementById("three-leg-input-box").value), 
+        Number(document.getElementById("four-leg-input-box").value));
+
+    console.table(layout);
+
+    layout = assign_images(layout);
+    console.table(layout);
+
+    let output_grid = document.getElementById("stage-output-grid");
+    output_grid.innerHTML = "";
+
+    output_grid.style.gridTemplateColumns = `repeat(${panel_grid[0].length}, 1fr)`;
+    output_grid.style.gridTemplateRows = `repeat(${panel_grid.length}, 1fr)`;
+    for (let i = 0; i < layout.length; i++) {
+        for (let j = 0; j < layout[i].length; j++) {
+            let cell = document.createElement("div");
+            cell.classList.add("stage-cell");
+
+            let img = document.createElement("img");
+            img.src = `images/${layout[i][j]}.png`;
+            img.style.width = "100%";
+            img.style.height = "100%";
+            img.style.objectFit = "contain";
+            img.style.display = "block";
+
+            if (layout[i][j] == 0 || layout[i][j] == 4) {
+                cell.style.gridColumn = "span 3";
+            }
+            else if (layout[i][j] == 1 || layout[i][j] == 5) {
+                cell.style.gridColumn = "span 2";
+            }
+            else if (layout[i][j] == 8) {
+                cell.style.gridColumn = "span 1";
+            } 
+            else {
+                cell.style.gridColumn = "span 1";
+            }
+
+            cell.appendChild(img);
+            output_grid.appendChild(cell);
+        }
+    }
+}
+
+document.getElementById("calculate-button").addEventListener("click", make_diagram);

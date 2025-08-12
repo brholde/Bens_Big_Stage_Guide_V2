@@ -245,7 +245,6 @@ body {
     width: 98%;
     height: 90%;
     object-fit: contain;
-    max-width: 300px;
 }
 #stage-dim-vertical {
     grid-column: 1;

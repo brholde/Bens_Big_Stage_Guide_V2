@@ -35,7 +35,7 @@
         <div id="calculate-error" class="error-message"></div>
     </div>
 
-    <div class="stage-output">
+    <div id="diagram-div" class="stage-output">
         <h3 class="section-title">Top-Down Stage Diagram</h3>
         <button id="print-button">🖨️</button>
         <div id="leg-info">
@@ -43,7 +43,20 @@
             <div id="three-leg-info">Number of 3-legs required: <span id="three-leg-info-output"></span></div>
             <div id="four-leg-info">Number of 4-legs required: <span id="four-leg-info-output"></span></div>
         </div>
-        <div id="stage-output-grid"></div>
+        <div id="diagram-controls">
+            <label id="dimension-checkbox-label" for="dimension-checkbox">
+                <input id="dimension-checkbox" type="checkbox" checked>
+                Show Dimensions
+            </label>
+            <button id="swap-button" class="controls-button">⇄ Swap Dimensions</button>
+        </div>
+        <div id="stage-outer-grid">
+            <div id="stage-dim-vertical">13</div>
+            <img id="vertical-arrow" src="images/vertical_arrow.png" alt="Vertical Arrow">
+            <div id="stage-output-grid"></div>
+            <div id="stage-dim-horizontal">13</div>
+            <img id="horizontal-arrow" src="images/horizontal_arrow.png" alt="Horizontal Arrow">
+        </div>
     </div>
 
     <script src="script.js"></script>

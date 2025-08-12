@@ -14,32 +14,30 @@ body {
 
 .title {
     color: #000000;
-    margin-top: 1em;
     background-color: rgba(169, 169, 169, 0.568);
     align-self: center;
     padding: 0.5em;
     border-radius: 20px;
     width: fit-content;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
-    font-size: 3vw;
+    font-size: 2vw;
 }
 
 .section-title {
     color: #000000;
-    margin-top: 1em;
     background-color: rgba(169, 169, 169, 0.568);
     align-self: center;
     padding: 0.5em;
     border-radius: 8px;
     width: fit-content;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    font-size: 1.8vw;
+    font-size: 1.5vw;
 }
 
 .error-message {
     display: none;
     color: #380808;
-    font-size: 2vw;
+    font-size: 1.2vw;
     margin-top: 1em;
     background-color: rgba(255, 0, 0, 0.2);
     padding: 0.5em;
@@ -54,7 +52,7 @@ body {
     background-color: rgba(169, 169, 169, 0.568);
     width: fit-content;
     align-self: center;
-    width: 95vw;
+    width: 90vw;
     padding-top: 1em;
     padding-bottom: 2em;
     border-radius: 20px;
@@ -62,13 +60,13 @@ body {
 }
 .number-input {
     text-align: center;
-    width: 14vw;
+    width: 10vw;
     padding: 0.2em;
     font-size: 2.5vw;
     border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    height: 3.5vw;
+    height: 2.5vw;
     padding-left: 1.2vw
 }
 .number-input::placeholder {
@@ -76,7 +74,7 @@ body {
     text-align: center;
 }
 .input-label{
-    font-size: 2vw;;
+    font-size: 2vw;
 }
 #leg-input-grid {
     display: grid;
@@ -111,13 +109,13 @@ body {
     align-self: center;
     border-radius: 20px;
     margin-top: 1em;
-    width: 95vw;
+    width: 90vw;
     padding-top: 1em;
     padding-bottom: 2em;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
 }
 .dimension-input label {
-    font-size: 2.8vw;
+    font-size: 2vw;
 }
 #dimension-input-grid {
     display: grid;
@@ -144,7 +142,6 @@ body {
 .feet-label {
     margin-left: 0.2em;
     align-self: end;
-    margin-bottom: 0.2vw;
 }
 #feet-label-1 {
     grid-column: 2;
@@ -157,7 +154,7 @@ body {
 #dimension-separator{
     grid-column: 3;
     grid-row: 2;
-    font-size: 4vw;
+    font-size: 3vw;
     margin-left: 1em;
     margin-right: 1em;
 }
@@ -166,7 +163,7 @@ body {
     border-radius: 60px;
     width: fit-content;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
-    font-size: 2.5vw;
+    font-size: 1.8vw;
     margin-top: 1em;
     padding: 0.5em;
 }
@@ -180,11 +177,23 @@ body {
     align-items: center;
     border-radius: 20px;
     margin-top: 1em;
-    margin-bottom: 4em;
-    width: 95vw;
+    margin-bottom: 1em;
+    width: 90vw;
     padding-top: 1em;
     padding-bottom: 2em;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+}
+#dimension-checkbox-label {
+    font-size: 1.5vw;
+    display: flex;
+    justify-self: center;
+}
+#dimension-checkbox {
+    width: 2vw;
+    height: 2vw;
+    position: relative;
+    bottom: 0.4em;
+    margin-right: 0.5vw;
 }
 #print-button {
     background-color: #6acc6f85;
@@ -196,6 +205,7 @@ body {
     position: absolute;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
     font-size: 3vw;
+    padding: 0.2em;
 }
 #stage-dimensions-info {
     font-weight: 600;
@@ -208,16 +218,152 @@ body {
 #four-leg-info {
     font-size: 1.5vw;
 }
+#stage-outer-grid {
+    display: grid;
+    grid-template-columns: max-content max-content max-content;
+    grid-template-rows: auto auto auto;
+    width: 100%;
+    max-width: 90vw;
+    align-items: stretch;
+    justify-content: center;
+}
 #stage-output-grid {
-  display: grid;
-  width: 100%;
-  max-width: 90vw;
-  height: fit-content;
-  margin: 0 auto;
-  gap: 4px;
-  border: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    max-width: 70vw;
+    height: fit-content;
+    margin: 0 auto;
+    gap: 0;
+}
+.stage-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.diagram-image {
+    width: 98%;
+    height: 90%;
+    object-fit: contain;
+    max-height: 300px;
+}
+#stage-dim-vertical {
+    grid-column: 1;
+    grid-row: 1;
+    font-size: 2vw;
+    align-self: center;
+}
+#stage-dim-horizontal {
+    grid-column: 3;
+    grid-row: 3;
+    font-size: 2vw;
+    align-self: center;
+}
+#vertical-arrow {
+    grid-column: 2;
+    grid-row: 1;
+    max-height: 96%;
+    width: 4vw;
+    object-fit: fill;
+    align-self: center;
+}
+#horizontal-arrow {
+    grid-column: 3;
+    grid-row: 2;
+    width: 86%;
+    height: 4vw;
+    justify-self: center;
+    object-fit: fill;
+    margin-top: 4vw;
+}
+.controls-button {
+    background-color: #6acc6f85;
+    border-radius: 20px;
+    width: fit-content;
+    align-self:flex-end;
+    margin-right: 0.5em;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+    font-size: 2vw;
+    justify-self: center;
+}
+.stage-row {
+    display: flex;
+    width: fit-content;
+    margin-bottom: 2px;
+    align-items: flex-start; /* makes sure row height matches shortest image */
+}
+#stage-output-grid {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    max-width: 70vw;
+    margin: 0 auto;
+    gap: 0;
+    justify-self: center;
+    margin-top: 3vw;
+}
+
+.stage-row {
+    display: flex;
+    width: fit-content;
+    margin-bottom: 2px;
+    align-items: flex-start;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    justify-self: center;
 }
 
 .stage-cell {
-  border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.diagram-image {
+    width: 100%;
+    height: 100%;
+}
+#diagram-div {
+    display: none;
+}
+#diagram-controls {
+    background-color: rgba(169, 169, 169, 0.568);
+    border-radius: 20px;
+    padding: 1em;
+    margin-top: 1em;
+    width: 30vw;
+}
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #diagram-div, #diagram-div * {
+    visibility: visible;
+  }
+  #diagram-div {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background-color: white;
+    box-shadow: none;
+    margin-top: 5%;
+  }
+  #diagram-controls {
+    display: none;
+  }
+  #print-button {
+    visibility: hidden;
+  }
+  #leg-info {
+    margin-bottom: 2em;
+  }
+  .section-title {
+    display: none;
+  }
+  #leg-info{
+    display: none;
+  }
 }

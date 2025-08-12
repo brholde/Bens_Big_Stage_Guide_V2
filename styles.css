@@ -265,7 +265,6 @@ body {
     width: 4vw;
     object-fit: fill;
     align-self: center;
-    padding-top: 3vw;
 }
 #horizontal-arrow {
     grid-column: 3;
@@ -290,9 +289,7 @@ body {
     display: flex;
     width: fit-content;
     margin-bottom: 2px;
-    align-items: flex-start; /* makes sure row height matches shortest image */
-}
-#stage-output-grid {
+    align-items: flex-start; 
     display: flex;
     flex-direction: column;
     width: fit-content;

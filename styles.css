@@ -245,7 +245,7 @@ body {
     width: 98%;
     height: 90%;
     object-fit: contain;
-    max-height: 300px;
+    max-width: 300px;
 }
 #stage-dim-vertical {
     grid-column: 1;
@@ -266,6 +266,7 @@ body {
     width: 4vw;
     object-fit: fill;
     align-self: center;
+    padding-top: 3vw;
 }
 #horizontal-arrow {
     grid-column: 3;

@@ -222,7 +222,7 @@ body {
     display: grid;
     grid-template-columns: max-content max-content max-content;
     grid-template-rows: auto auto auto;
-    width: 100%;
+    width: 80%;
     max-width: 90vw;
     align-items: stretch;
     justify-content: center;
@@ -231,7 +231,7 @@ body {
     display: flex;
     flex-direction: column;
     width: fit-content;
-    max-width: 70vw;
+    max-width: 70em;
     height: fit-content;
     margin: 0 auto;
     gap: 0;

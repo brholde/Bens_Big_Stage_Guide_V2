@@ -497,6 +497,7 @@ function swap_dimensions(layout) {
                 case 8: new_value = 9; break;
                 case 9: new_value = 8; break;
                 case "p": new_value ="p"; break;
+                case undefined: new_value = undefined; break;
                 default:
                     throw new Error("Could not swap dimensions. Given a bad value");
             }
@@ -539,7 +540,9 @@ function draw_swapped_layout() {
 
             let img = document.createElement("img");
             img.className = "diagram-image";
-            img.src = `images/${layout[i][j]}.png`;
+            if (layout[i][j] != undefined) {
+                img.src = `images/${layout[i][j]}.png`;
+            }
 
             // Determine column span
             if (layout[i][j] == 0 || layout[i][j] == 4) {
@@ -597,10 +600,12 @@ function make_diagram() {
             for (let j = 0; j < layout[i].length; j++) {
                 let cell = document.createElement("div");
                 cell.classList.add("stage-cell");
-
+                
                 let img = document.createElement("img");
                 img.className = "diagram-image";
-                img.src = `images/${layout[i][j]}.png`;
+                if (layout[i][j] != undefined) {
+                    img.src = `images/${layout[i][j]}.png`;
+                }
 
                 if (layout[i][j] == 0 || layout[i][j] == 4) {
                     cell.style.gridColumn = "span 3";
